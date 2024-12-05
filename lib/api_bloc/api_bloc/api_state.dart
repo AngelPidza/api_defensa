@@ -1,12 +1,13 @@
-import 'package:api_defensa/models/transaction.dart';
+// api_state.dart
+import 'package:api_defensa/models/classroom.dart';
 
 abstract class ApiState {
-  final List<Transaction> transactions;
+  final List<Classroom> classrooms;
   final bool isLoading;
   final String? error;
 
   ApiState({
-    this.transactions = const [],
+    this.classrooms = const [],
     this.isLoading = false,
     this.error,
   });
@@ -19,7 +20,7 @@ class ApiLoading extends ApiState {
 }
 
 class ApiLoaded extends ApiState {
-  ApiLoaded(List<Transaction> transactions) : super(transactions: transactions);
+  ApiLoaded(List<Classroom> classrooms) : super(classrooms: classrooms);
 }
 
 class ApiError extends ApiState {

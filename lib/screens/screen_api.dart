@@ -1,9 +1,9 @@
 import 'package:api_defensa/api_bloc/api_bloc/api_bloc.dart';
 import 'package:api_defensa/api_bloc/api_bloc/api_event.dart';
 import 'package:api_defensa/api_bloc/api_bloc/api_state.dart';
-import 'package:api_defensa/models/transaction.dart';
-import 'package:api_defensa/screens/transaction_card.dart';
-import 'package:api_defensa/screens/transaction_dialog.dart';
+import 'package:api_defensa/models/classroom.dart';
+import 'package:api_defensa/screens/classroom_card.dart';
+import 'package:api_defensa/screens/classroom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,12 +14,12 @@ class ScreenApi extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Transacciones'),
+        title: const Text('Classrooms'),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () => _showTransactionDialog(context),
-          ),
+            onPressed: () => _showClassroomDialog(context),
+          )
         ],
       ),
       body: BlocBuilder<ApiBloc, ApiState>(
@@ -33,16 +33,15 @@ class ScreenApi extends StatelessWidget {
           }
 
           return ListView.builder(
-            itemCount: state.transactions.length,
+            itemCount: state.classrooms.length,
             itemBuilder: (context, index) {
-              final transaction = state.transactions[index];
-              return TransactionCard(
-                transaction: transaction,
+              final classroom = state.classrooms[index];
+              return ClassroomCard(
+                classroom: classroom,
                 onEdit: () =>
-                    _showTransactionDialog(context, transaction: transaction),
-                onDelete: () => context
-                    .read<ApiBloc>()
-                    .add(DeleteTransaction(transaction.id)),
+                    _showClassroomDialog(context, classroom: classroom),
+                onDelete: () =>
+                    context.read<ApiBloc>().add(DeleteClassroom(classroom.id)),
               );
             },
           );
@@ -51,14 +50,12 @@ class ScreenApi extends StatelessWidget {
     );
   }
 
-  // En el archivo donde muestras el diálogo:
-  void _showTransactionDialog(BuildContext context,
-      {Transaction? transaction}) {
+  void _showClassroomDialog(BuildContext context, {Classroom? classroom}) {
     showDialog(
       context: context,
       builder: (dialogContext) => BlocProvider.value(
         value: BlocProvider.of<ApiBloc>(context),
-        child: TransactionDialog(transaction: transaction),
+        child: ClassroomDialog(classroom: classroom),
       ),
     );
   }

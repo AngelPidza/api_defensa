@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class TransactionDialog extends StatefulWidget {
   final Transaction? transaction;
 
-  const TransactionDialog({Key? key, this.transaction}) : super(key: key);
+  const TransactionDialog({super.key, this.transaction});
 
   @override
   State<TransactionDialog> createState() => _TransactionDialogState();

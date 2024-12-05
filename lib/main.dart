@@ -9,18 +9,16 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'CRUD App',
+      title: 'Classroom App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
         useMaterial3: true,
       ),
       home: BlocProvider(
-        create: (_) => ApiBloc()..add(LoadTransactions()),
+        create: (_) => ApiBloc()..add(LoadClassrooms()),
         child: const ScreenApi(),
       ),
     );
